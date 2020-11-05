@@ -2,7 +2,13 @@ const express = require('express')
 
 const app = express()
 
+// this line down must be early of the routes
+app.use(express.json())
+
 app.get('/projects', (request, response) => {
+    const { title , character } = request.query
+
+    console.log(title, character)
     //retorn of json always in array or object
     return response.json([
         'project ONE',
@@ -12,7 +18,11 @@ app.get('/projects', (request, response) => {
 })
 
 // There is no problem to use the same path /projects but with an other method (get, post)
-app.post('/prohects', (request, response) =>{
+app.post('/projects', (request, response) =>{
+    const { title, owner } = request.body
+
+    console.log(title, owner)
+
     return response.json([
         'project ONE',
         'project TWO',
@@ -21,7 +31,11 @@ app.post('/prohects', (request, response) =>{
     ])
 })
 
-app.put('/prohects/:id', (request, response) =>{
+app.put('/projects/:id', (request, response) =>{
+    const { id } = request.params
+
+    console.log(id)
+
     return response.json([
         'project FIVE',
         'project TWO',
@@ -30,7 +44,7 @@ app.put('/prohects/:id', (request, response) =>{
     ])
 })
 
-app.delete('/prohects/:id', (request, response) =>{
+app.delete('/projects/:id', (request, response) =>{
     return response.json([
         'project TWO',
         'project THREE',
